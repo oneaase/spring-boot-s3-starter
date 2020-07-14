@@ -1,6 +1,17 @@
 # Compiled class file
 *.class
 
+# Built file
+target/
+
+# Eclipse properties
+.classpath
+.project
+.settings/
+
+# MacOS Properties
+.DS_Store
+
 # Log file
 *.log
 

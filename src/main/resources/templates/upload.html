@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+  <title>Spring Boot S3 Starter</title>
+  
+  <meta charset="UTF-8"/>
+</head>
+
+<body>
+  <h1>Hello, Spring Boot with Amazon S3</h1>
+  <div>
+    <form action="/upload" th:action="@{/upload}" method="post" enctype="multipart/form-data">
+      <fieldset>
+        <legend>Upload File</legend>
+        <input type="file" name="file"/>
+        <button type="submit">upload</button>
+      </fieldset>
+    </form>
+  </div>
+</body>
+</html>

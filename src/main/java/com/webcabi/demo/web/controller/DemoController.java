@@ -14,24 +14,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.webcabi.demo.web.model.UploadForm;
+
 @Controller
 public class DemoController {
 	
 	@GetMapping("/")
 	public String getUploadForm(Model model) {
+		model.addAttribute("form", new UploadForm());
 		
 		return "upload";
 	}
 	
 	@PostMapping("/upload")
-	public String upload(MultipartFile file) throws IOException {
+	public String upload(UploadForm files) throws IOException {
 		
 		String storeDir = "/private/tmp/upload";
 		Path storeDirPath = Paths.get(storeDir);
-		String filename = StringUtils.cleanPath(file.getOriginalFilename());
 		
-		InputStream input = file.getInputStream();
-		Files.copy(input, storeDirPath.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+		for (MultipartFile file : files.getFiles()) {
+			String filename = StringUtils.cleanPath(file.getOriginalFilename());
+			
+			InputStream input = file.getInputStream();
+			Files.copy(input, storeDirPath.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+		}
 		
 		return "redirect:/";
 	}

@@ -1,6 +1,12 @@
-amazon:
-  dynamodb:
-    endpoint: https://dynamodb.ap-northeast-1.amazonaws.com
-  credential:
-    access.key.id: ${AWS_ACCESS_KEY_ID}
-    secret.access.key: ${AWS_SECRET_ACCESS_KEY}
+server:
+  port: 8080
+  servlet:
+    context-path: /
+cloud.aws:
+  s3:
+    bucket: "Enter Your Amazon S3 Bucket"
+  stack:
+    auto: false
+  region:
+    auto: false
+    static: "Enter Your AWS Region"

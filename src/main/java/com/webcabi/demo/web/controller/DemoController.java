@@ -2,22 +2,23 @@ package com.webcabi.demo.web.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.webcabi.demo.domain.service.AWSS3Service;
 import com.webcabi.demo.web.model.UploadForm;
 
 @Controller
 public class DemoController {
+	
+	@Autowired
+	private AWSS3Service awsS3Service;
 	
 	@GetMapping("/")
 	public String getUploadForm(Model model) {
@@ -29,14 +30,12 @@ public class DemoController {
 	@PostMapping("/upload")
 	public String upload(UploadForm files) throws IOException {
 		
-		String storeDir = "/private/tmp/upload";
-		Path storeDirPath = Paths.get(storeDir);
-		
 		for (MultipartFile file : files.getFiles()) {
-			String filename = StringUtils.cleanPath(file.getOriginalFilename());
+			ObjectMetadata objectMetadata = new ObjectMetadata();
+			objectMetadata.setContentLength(file.getSize());
 			
 			InputStream input = file.getInputStream();
-			Files.copy(input, storeDirPath.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
+			awsS3Service.upload(file.getOriginalFilename(), input, objectMetadata);
 		}
 		
 		return "redirect:/";

@@ -8,7 +8,7 @@ import lombok.Data;
 @Component
 @ConfigurationProperties(prefix = "cloud.aws.s3")
 @Data
-public class AWSS3Properties {
+public class AmazonS3Properties {
 	
 	private String bucket;
 }

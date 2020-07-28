@@ -7,7 +7,7 @@ import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
 
 @Configuration
-public class AWSS3Config {
+public class AmazonS3Config {
 	
 	@Bean(destroyMethod = "shutdownNow")
 	public TransferManager transferManager() {

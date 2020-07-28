@@ -1,12 +1,12 @@
 server:
-  port: 8888
+  port: 8080
   servlet:
     context-path: /
 cloud.aws:
   s3:
-    bucket: "wc-spring-boot-s3-demo"
+    bucket: "Enter Your Amazon S3 Bucket"
   stack:
     auto: false
   region:
     auto: false
-    static: "ap-northeast-1"
+    static: "Enter Your AWS Region"
